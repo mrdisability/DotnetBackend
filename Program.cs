@@ -1,3 +1,4 @@
+using DotnetBackend.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,7 +41,10 @@ var services = scope.ServiceProvider;
 try
 {
     var context = services.GetRequiredService<DataContext>();
-    context.Database.Migrate();
+    await context.Database.MigrateAsync();
+
+    // Seed data
+    await Seed.SeedData(context);
 }
 catch (Exception ex)
 {
