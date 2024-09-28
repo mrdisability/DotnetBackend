@@ -17,7 +17,7 @@ builder.Services.AddDbContext<DataContext>(opt =>
         .GetConnectionString("DefaultConnection"));
 });
 
-// Add cors policy for react frontend
+// Add cors policy for react frontend, now working
 builder.Services.AddCors(opt =>
 {
     opt.AddPolicy("CorsPolicy", policy =>
