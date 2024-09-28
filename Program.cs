@@ -17,6 +17,15 @@ builder.Services.AddDbContext<DataContext>(opt =>
         .GetConnectionString("DefaultConnection"));
 });
 
+// Add cors policy for react frontend
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("CorsPolicy", policy =>
+    {
+        policy.AllowAnyHeader().AllowAnyMethod()
+            .WithOrigins("http://localhost:5173");
+    });
+});
 
 var app = builder.Build();
 
@@ -29,6 +38,8 @@ if (app.Environment.IsDevelopment())
 
 // Use this in future if needed
 //app.UseHttpsRedirection();
+
+app.UseCors("CorsPolicy");
 
 app.UseAuthorization();
 
